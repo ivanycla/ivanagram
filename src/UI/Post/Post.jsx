@@ -1,52 +1,72 @@
-import React, { useState, useEffect } from "react";
-import getPost from "../../API/getPost/getPost";
-import Photo from "../../API/Photo/Photo";
+import React, { useState } from "react";
 import Comment from "../Comment/Comment";
+import UseUserPostPhoto from "../../Hooks/UseUserPostPhoto/useUserPostPhoto";
+import { useNavigate } from "react-router-dom";
+
 const Post = () => {
     const [likes, setLikes] = useState(() => Math.floor(Math.random() * 100) + 1);
-    const [photo, setPhoto] = useState("");
-    const [postText, setPostText] = useState("");
-    const [commentFlag,setCommentFlag]=useState(false);
-    useEffect(() => {
-        
-        const fetchPhoto = async () => {
-            try {
-                const photoUrl = await Photo();
-                setPhoto(photoUrl);
-            } catch (error) {
-                console.error("Error loading photo:", error);
+    const [commentFlag, setCommentFlag] = useState(false);
+    const navigate=useNavigate();
+    
+    const { photo, postText, user, loading, error } = UseUserPostPhoto();
+
+    if (loading) return <div className="loading">Загрузка поста...</div>;
+    if (error) return <div className="error">Ошибка: {error}</div>;
+    const handleViewUser = () => {
+        navigate(`/userProfile/${user.name}`, {
+          state: {
+            user: user,
+            post: {
+              text: postText,
+              img: photo,
+              likes: likes
             }
-        };
-
-      
-        const fetchPost = async () => {
-            try {
-                const text = await getPost();
-                setPostText(text);
-            } catch (error) {
-                console.error("Error loading post:", error);
-            }
-        };
-
-        fetchPhoto();
-        fetchPost();
-    }, []);
-
+          }
+        });
+      };
     return (
         <div className="post">
-            {photo && <img src={photo} alt="Post content" />}
-            <div className="post-content">
-                <p>{postText}</p>
-                <button className="likes-button">{likes} ❤️</button>
-                <button onClick={() => setCommentFlag(!commentFlag)}>
-                    {commentFlag ? 'Скрыть' : 'Показать'} комментарии
-                </button>
+            {user && (
+                <div className="post-header">
+                    <img 
+                        src={user.avatar} 
+                        alt="User avatar" 
+                        className="user-avatar"
+                        onClick={handleViewUser}
+                    />
+                    <p className="user-name">{user.name}</p>
+                </div>
+            )}
+            
+            {photo && (
+                <img 
+                    src={photo} 
+                    alt="Post content" 
+                    className="post-image"
+                />
+            )}
 
-                {commentFlag&&(
+            <div className="post-content">
+                <p className="post-text">{postText}</p>
+                
+                <div className="post-actions">
+                    <button className="likes-button">
+                        {likes} ❤️
+                    </button>
+                    
+                    <button 
+                        onClick={() => setCommentFlag(!commentFlag)}
+                        className="comments-toggle"
+                    >
+                        {commentFlag ? 'Скрыть' : 'Показать'} комментарии
+                    </button>
+                </div>
+
+                {commentFlag && (
                     <Comment
-                    postText={postText}
-                    likes={likes}
-                    photo={photo}
+                        postText={postText}
+                        likes={likes}
+                        photo={photo}
                     />
                 )}
             </div>

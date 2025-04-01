@@ -8,7 +8,7 @@ const Photo = async () => {
         return  `https://randomuser.me/api/portraits/men/${randomPhoto}.jpg`;
       
     } catch(err) {
-        alert("Ошибка", err);
+        console.error("ошибка",err)
         throw err; 
     }
 }

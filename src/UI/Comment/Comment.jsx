@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Comments from "../../API/Comments/Comments";
 
 const Comment = ({ postText, photo, likes }) => {
-  const [newCommentText, setNewCommentText] = useState(""); // Переименовано для ясности
-  const [comments, setComments] = useState([]); // Новое состояние для хранения комментариев
+  const [newCommentText, setNewCommentText] = useState(""); 
+  const [comments, setComments] = useState([]); 
   const [botComment, setBotComment] = useState("");
 
   useEffect(() => {
@@ -21,9 +21,9 @@ const Comment = ({ postText, photo, likes }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newCommentText.trim()) {
-      // Добавляем новый комментарий в начало массива
+      
       setComments(prev => [{ text: newCommentText, id: Date.now() }, ...prev]);
-      setNewCommentText(""); // Очищаем поле ввода
+      setNewCommentText(""); 
     }
   };
 
