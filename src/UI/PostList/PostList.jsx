@@ -1,9 +1,13 @@
-import React from 'react';  
+import React, { useEffect, useState } from 'react';  
 import Post from '../Post/Post';
 
-const PostsList = () => {  
+const PostsList = () => {
+    
+   
     return (  
-        <div>  
+        <div> 
+          
+            
             {[...Array(70)].map((_, i) => (  
                 <Post key={i} />  
             ))}  

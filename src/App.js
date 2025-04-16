@@ -6,8 +6,8 @@ import Change from './pages/Change';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import UserPage from './pages/UserPage';
-
-
+import Chat from './pages/Chat';
+import Subscribers from './pages/Subscribers'
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +17,8 @@ function App() {
     <Route path="/change" element={<Change />} />
     <Route path="/main" element={<Main />} />
     <Route path="/userProfile/:username" element={<UserPage />} />
+    <Route path="/Chat/:username" element={< Chat/>} />
+    <Route path="/subs/" element={< Subscribers/>} />
     </Routes>
     </BrowserRouter>
   );
