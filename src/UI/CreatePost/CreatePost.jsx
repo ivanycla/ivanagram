@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../styles/Login.module.css";
+import styles from "./CreatePost.module.css"
 
-const Login = () => {
+const CreatePost = ({createPostFlag,onClose}) => {
     const [photo, setPhoto] = useState(null);
-    const [name, setName] = useState("");
+
     const [bio, setBio] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const user = {
+        const post = {
             bio: bio,
-            name: name,
             photo: photo
         }
-        if (bio && name && photo) {
-            navigate("/profile");
-            localStorage.setItem("user", JSON.stringify(user));
+        if (bio && photo) {
+            
+            const existingPosts = JSON.parse(localStorage.getItem("userPost")) || [];
+            const updatedPosts = [...existingPosts, post];
+            localStorage.setItem("userPost", JSON.stringify(updatedPosts));
+            onClose(); 
         }
     };
 
@@ -35,7 +37,7 @@ const Login = () => {
     return (
         <div className={styles.container}>
             <div className={styles.formContainer}>
-                <h1 className={styles.title}>Ivanagram</h1>
+                
                 
                 {photo && (
                     <img 
@@ -46,15 +48,6 @@ const Login = () => {
                 )}
 
                 <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                    <input
-                        type="text"
-                        placeholder="Создай свой ник"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className={styles.input}
-                        required
-                    />
-
                     <textarea
                         placeholder="Напиши что-нибудь о себе"
                         value={bio}
@@ -79,17 +72,14 @@ const Login = () => {
                             style={{ display: 'none' }}
                         />
                     </div>
+                <button type="submit" className={styles.button}>
+                Создать Пост
+                </button>
 
-                    <button 
-                        type="submit" 
-                        className={styles.button}
-                    >
-                        Создать профиль
-                    </button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default CreatePost;
