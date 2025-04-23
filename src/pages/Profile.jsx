@@ -9,10 +9,18 @@ const Profile = () => {
     const navigate = useNavigate();
     const [posts,setPosts]=useState([]);
     const [createPostFlag,setCreatePostFlag]=useState(false);
+    const [randomSubs,setRandomSubs]=useState(Math.floor(Math.random()*100));
+    const [subscribe,setSubscribe]=useState([localStorage.getItem("subscriber")]);
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem("user"));
         if (savedUser) setUser(savedUser);
     }, []);
+    useEffect(() => {
+        
+        const savedSubs = JSON.parse(localStorage.getItem("subscriber")) || [];
+        setSubscribe(savedSubs);
+    }, []); 
+
     useEffect(() => {  
         const savedPosts = JSON.parse(localStorage.getItem("userPost")) || [];  
         setPosts(Array.isArray(savedPosts) ? savedPosts : [savedPosts]);  
@@ -38,10 +46,17 @@ const Profile = () => {
                         </div>
                         <div className={styles.statItem}>
                             
-                            <button className={styles.button}>подписчиков {Math.floor(Math.random()*100)+1}</button>
+                            <button 
+                            onClick={()=>navigate('/subs',{state:{
+                                randomSize:randomSubs
+                            }})}
+                            className={styles.button}
+                            >подписчиков{randomSubs}</button>
                         </div>
                         <div className={styles.statItem}>
-                            <button className={styles.button}>подписок {user.subs||0}</button>
+                            <button 
+                            onClick={()=>navigate("/yourSubs")}
+                            className={styles.button}>подписок {subscribe.length||0}</button>
                         </div>
                     </div>
 

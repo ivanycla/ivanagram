@@ -8,6 +8,7 @@ import Main from './pages/Main';
 import UserPage from './pages/UserPage';
 import Chat from './pages/Chat';
 import Subscribers from './pages/Subscribers'
+import YourSubs from './pages/YourSubs';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
     <Route path="/userProfile/:username" element={<UserPage />} />
     <Route path="/Chat/:username" element={< Chat/>} />
     <Route path="/subs/" element={< Subscribers/>} />
+    <Route path="/yorSubs/" element={< YourSubs/>} />
     </Routes>
     </BrowserRouter>
   );

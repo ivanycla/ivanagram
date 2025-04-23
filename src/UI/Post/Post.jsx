@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const Post = () => {
     const [likes, setLikes] = useState(() => Math.floor(Math.random() * 100) + 1);
     const [commentFlag, setCommentFlag] = useState(false);
-    const [users,setUsers]=useState([]);
     const navigate=useNavigate();
     const [isLike,setIsLike]=useState(false)
     const { photo, postText, user, loading, error } = UseUserPostPhoto();
