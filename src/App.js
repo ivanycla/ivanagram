@@ -9,6 +9,7 @@ import UserPage from './pages/UserPage';
 import Chat from './pages/Chat';
 import Subscribers from './pages/Subscribers'
 import YourSubs from './pages/YourSubs';
+import Direct from './pages/Direct';
 function App() {
   return (
     <BrowserRouter>
@@ -20,7 +21,7 @@ function App() {
     <Route path="/userProfile/:username" element={<UserPage />} />
     <Route path="/Chat/:username" element={< Chat/>} />
     <Route path="/subs/" element={< Subscribers/>} />
-    <Route path="/yorSubs/" element={< YourSubs/>} />
+    <Route path="/direct" element={<Direct/>} />
     </Routes>
     </BrowserRouter>
   );

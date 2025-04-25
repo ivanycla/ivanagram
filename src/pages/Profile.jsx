@@ -9,7 +9,7 @@ const Profile = () => {
     const navigate = useNavigate();
     const [posts,setPosts]=useState([]);
     const [createPostFlag,setCreatePostFlag]=useState(false);
-    const [randomSubs,setRandomSubs]=useState(Math.floor(Math.random()*100));
+    const [randomSubs,setRandomSubs]=useState(Math.floor(Math.random()*10));
     const [subscribe,setSubscribe]=useState([localStorage.getItem("subscriber")]);
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem("user"));
